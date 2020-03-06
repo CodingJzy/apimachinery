@@ -132,9 +132,10 @@ type Requirement struct {
 //
 // The empty string is a valid value in the input values set.
 func NewRequirement(key string, op selection.Operator, vals []string) (*Requirement, error) {
-	if err := validateLabelKey(key); err != nil {
-		return nil, err
-	}
+	// TODO:先暂时取消对key的校验
+	//if err := validateLabelKey(key); err != nil {
+	//	return nil, err
+	//}
 	switch op {
 	case selection.In, selection.NotIn:
 		if len(vals) == 0 {
@@ -160,12 +161,12 @@ func NewRequirement(key string, op selection.Operator, vals []string) (*Requirem
 	default:
 		return nil, fmt.Errorf("operator '%v' is not recognized", op)
 	}
-
-	for i := range vals {
-		if err := validateLabelValue(key, vals[i]); err != nil {
-			return nil, err
-		}
-	}
+	// TODO:先暂时取消对value的校验
+	//for i := range vals {
+	//	if err := validateLabelValue(key, vals[i]); err != nil {
+	//		return nil, err
+	//	}
+	//}
 	return &Requirement{key: key, operator: op, strValues: vals}, nil
 }
 
